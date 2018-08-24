@@ -10,7 +10,9 @@ class ArticlesController < ApplicationController
    end
    
    def create
+      debugger
       @article = Article.new(article_params)
+      @article.user = User.first
       # @article.save
       # redirect_to articles_path(@article)
       if @article.save
