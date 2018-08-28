@@ -2,15 +2,38 @@
   <li class="nav-item">
     <%= link_to "Alpha Blog", root_path, class: "nav-link", id: "logo" %>
   </li>
-  <li class="nav-item">
-       <a>
-        <%= link_to "New Article", new_article_path, class: "nav-link" %> 
-       </a>
-  </li>
-  <li class="nav-item">
-    <%= link_to "Articles", articles_path, class: "nav-link" %>
-  </li>
-  <li>
-    <%= link_to "Log out", logout_path, method: :delete %>
+  <% if logged_in? %>
+    <li class="nav-item">
+      <a>
+        <%= link_to "New Article", new_article_path, class: "nav-link" %>
+      </a>
     </li>
+    <li class="nav-item">
+      <%= link_to "Articles", articles_path, class: "nav-link" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to "Users", users_path, class: "nav-link" %>
+    </li>
+    <li>
+      <%= link_to "Log out", logout_path, class: "nav-link", method: :delete %>
+    </li>
+    <div class="dropdown show float-right">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Your profile
+      </a>
+
+      <div class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <a class="dropdown-item"><%= link_to "Edit your profile", edit_user_path(current_user) %></a>
+        <a class="dropdown-item"><%= link_to "View your profile", user_path(current_user) %></a>
+<!--        <a class="dropdown-item" href="#">Something else here</a>-->
+      </div>
+    </div>
+  <% else %>
+    <li>
+      <%= link_to "Log in", login_path, class: "nav-link" %>
+    </li>
+    <li>
+      <%= link_to "Sign up", signup_path, class: "nav-link" %>
+    </li>
+  <% end %>
 </ul>
