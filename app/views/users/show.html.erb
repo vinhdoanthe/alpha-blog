@@ -1,13 +1,22 @@
 <h1 align='center'>Welcome to <%= @user.username %>'s page</h1>
 
 <div class='row'>
-    <div class='col-4 offset-4 center'>
-        <%= gravatar_for @user, size: 150 %>
-    </div>
+  <div class='col-4 offset-4 center'>
+    <%= gravatar_for @user, size: 150 %>
+  </div>
+</div>
+<% if current_user.is_admin %>
+  <div class="row col-2 offset-5">
+    <%= link_to "Delete this user", user_path(@user), method: :delete, data: {confirm: "Are you sure to delete this user and all articles belong to this user?"}, class: "btn btn-danger btn-lg" %>
+  </div>
+<% end %>
+<h4 align='center'> <%= @user.username %>'s articles</h4>
+<div class="d-flex justify-content-center">
+  <%= will_paginate @user_articles %>
 </div>
 
-<h4 align='center'> <%= @user.username %>'s articles</h4>
+<%= render 'articles/articles', obj: @user_articles %>
 
-<%= will_paginate @user_articles %>
-<%= render 'articles/article', obj: @user_articles %>
-<%= will_paginate @user_articles %>
+<div class="d-flex justify-content-center">
+  <%= will_paginate @user_articles %>
+</div>
